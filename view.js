@@ -14,6 +14,7 @@ function make_file_element(file_obj) {
                 <span class="oi oi-folder" id="${file_hash}_icon"/> ${file_obj.filename} 
                 <button class="ui-button ui-widget ui-corner-all permbutton" path="${file_hash}" id="${file_hash}_permbutton"> 
                     <span class="oi oi-lock-unlocked" id="${file_hash}_permicon"/> 
+                    Edit Permissions
                 </button>
             </h3>
         </div>`)
@@ -34,6 +35,7 @@ function make_file_element(file_obj) {
             <span class="oi oi-file" id="${file_hash}_icon"/> ${file_obj.filename}
             <button class="ui-button ui-widget ui-corner-all permbutton" path="${file_hash}" id="${file_hash}_permbutton"> 
                 <span class="oi oi-lock-unlocked" id="${file_hash}_permicon"/> 
+                Edit Permissions
             </button>
         </div>`)
     }
@@ -72,3 +74,39 @@ $('.permbutton').click( function( e ) {
 
 // ---- Assign unique ids to everything that doesn't have an ID ----
 $('#html-loc').find('*').uniqueId() 
+
+let permpanel = define_new_effective_permissions("permCol", true);
+$('#sidepanel').append(permpanel);
+
+let userselect = define_new_user_select_field("user", "Select User To View Their Permissions", function(selected_user){$('#permCol').attr('username', selected_user)});
+$('#sidepanel').append(userselect);
+
+$('#permCol').attr('filepath', '/C/presentation_documents/important_file.txt')
+
+//Permissions Explanation
+let dialog = define_new_dialog("dialog", "Permission");
+
+$('.perm_info').click(function(){
+    console.log('clicked!')
+    console.log($('#permCol').attr('filepath'))
+    console.log($('#permCol').attr('username'))
+    console.log($(this).attr('permission_name'))
+
+    let filepathObj = path_to_file[$('#permCol').attr('filepath')]
+    let usernameObj = all_users[$('#permCol').attr('username')]
+    let permissionObj = $(this).attr('permission_name')
+    let filepathNotObj = String([$('#permCol').attr('filepath')])
+
+    var n = filepathNotObj.lastIndexOf("/")
+    var fileString = filepathNotObj.substring(n+1)
+
+    console.log("view 103") //error on next line
+    console.log(filepathObj)
+    let userAction = allow_user_action(filepathObj, usernameObj, permissionObj, true)
+    console.log('view 104')
+    let explanataion = get_explanation_text(userAction, usernameObj, fileString, permissionObj)
+    console.log('view 107')
+    dialog.html(explanataion)
+    dialog.dialog('open')
+    console.log('view 110')
+})

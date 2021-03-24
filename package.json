@@ -12,7 +12,7 @@
         "dev": "\"npm run serve\""
     },
     "devDependencies": {
-        "aws-sdk": "^2.860.0",
+        "aws-sdk": "^2.863.0",
         "browser-sync": "^2.26.13",
         "prettier": "^2.2.1"
     },

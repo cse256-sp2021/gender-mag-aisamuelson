@@ -111,7 +111,8 @@ function allow_user_action(file, user, permission_to_check, explain_why = false)
   // fall through to normal permission check
   found_reason_to_allow = false;
   reason_to_allow = null;
-  for(let ace of file.acl) {
+  console.log("model 114 file: " + file)
+  for(let ace of file.acl) { //HERE
     if ( ace.permission === permission_to_check && ace_applies(user, ace) ) {
         // found an ACE for this user, file, and action
         if( ace.is_allow_ace == false ) {

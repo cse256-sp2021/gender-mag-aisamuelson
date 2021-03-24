@@ -502,14 +502,20 @@ function define_new_user_select_field(id_prefix, select_button_text, on_user_cha
 //---- misc. ----
 
 // Get a (very simple) text representation of a permissions explanation
-function get_explanation_text(explanation) {
+function get_explanation_text(explanation, user, file, permission) {
+    if(explanation.is_allowed){
+        return "Currently <b>" + user + "</b> <mark>CAN</mark><b> " + permission + "</b> on <b>" + file + "</b> <br> <br> If you would like to change this click the lock icon next to the file, \n select a givin user, and use the check boxes to assign permissions"
+    }else{
+        return "Currently <b>" + user + "</b> <mark>CANNOT</mark><b> " + permission + "</b> on <b>" + file + "</b> <br> <br> If you would like to change this click the lock icon next to the file, \n select a givin user, and use the check boxes to assign permissions"
+    }
+    /*
     return `
-    Action allowed?: ${explanation.is_allowed}; 
-    Because of
-    permission set for file: ${explanation.file_responsible?get_full_path(explanation.file_responsible):'N/A'}
+    Is this action allowed?: ${allowedText} 
+    Because of permission set for file: ${explanation.file_responsible?get_full_path(explanation.file_responsible):'N/A'}
     and for user: ${ explanation.ace_responsible ? get_user_name(explanation.ace_responsible.who) : 'N/A' }
     ${ explanation.text_explanation ? `(${explanation.text_explanation})`  : '' }
     `
+    */
 }
 
 //---- some universal HTML set-up so you don't have to do it in each wrapper.html ----
