@@ -64,6 +64,7 @@ $('.permbutton').click( function( e ) {
     perm_dialog.attr('filepath', path)
     perm_dialog.dialog('open')
     //open_permissions_dialog(path)
+    console.log(perm_dialog.attr('filepath'))
 
     // Deal with the fact that folders try to collapse/expand when you click on their permissions button:
     e.stopPropagation() // don't propagate button click to element underneath it (e.g. folder accordion)
@@ -81,32 +82,40 @@ $('#sidepanel').append(permpanel);
 let userselect = define_new_user_select_field("user", "Select User To View Their Permissions", function(selected_user){$('#permCol').attr('username', selected_user)});
 $('#sidepanel').append(userselect);
 
-$('#permCol').attr('filepath', '/C/presentation_documents/important_file.txt')
+
+//let fileselect = define_new_file_select_field("file", "Select File You Want To View Permissions For",function(selected_user){$('#permCol').attr('filename', selected_user)});
+//let fileselect = define_single_select_list("file");
+//$('#sidepanel').append(fileselect);
+
+//let pathselect = perm_dialog.attr('filepath')
+//console.log(perm_dialog.attr('filepath'))
+//$('#permCol').attr('filepath', '/C/presentation_documents/important_file.txt')
 
 //Permissions Explanation
 let dialog = define_new_dialog("dialog", "Permission");
 
 $('.perm_info').click(function(){
+    console.log(perm_dialog.attr('filepath'))
+
     console.log('clicked!')
-    console.log($('#permCol').attr('filepath'))
+    //console.log($('#permCol').attr('filepath'))
     console.log($('#permCol').attr('username'))
     console.log($(this).attr('permission_name'))
 
-    let filepathObj = path_to_file[$('#permCol').attr('filepath')]
+    //let filepathObj = path_to_file[$('#permCol').attr('filepath')]
     let usernameObj = all_users[$('#permCol').attr('username')]
     let permissionObj = $(this).attr('permission_name')
-    let filepathNotObj = String([$('#permCol').attr('filepath')])
+    //let filepathNotObj = String([$('#permCol').attr('filepath')])
+
+    let filepathObj = path_to_file[perm_dialog.attr('filepath')]
+    let filepathNotObj = path_to_file[perm_dialog.attr('filepath')]
 
     var n = filepathNotObj.lastIndexOf("/")
     var fileString = filepathNotObj.substring(n+1)
 
-    console.log("view 103") //error on next line
     console.log(filepathObj)
     let userAction = allow_user_action(filepathObj, usernameObj, permissionObj, true)
-    console.log('view 104')
     let explanataion = get_explanation_text(userAction, usernameObj, fileString, permissionObj)
-    console.log('view 107')
     dialog.html(explanataion)
     dialog.dialog('open')
-    console.log('view 110')
 })
