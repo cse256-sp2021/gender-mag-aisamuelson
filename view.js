@@ -57,6 +57,8 @@ $('.folder').accordion({
 
 // -- Connect File Structure lock buttons to the permission dialog --
 
+let pathselect = "";
+
 // open permissions dialog when a permission button is clicked
 $('.permbutton').click( function( e ) {
     // Set the path and open dialog:
@@ -64,7 +66,8 @@ $('.permbutton').click( function( e ) {
     perm_dialog.attr('filepath', path)
     perm_dialog.dialog('open')
     //open_permissions_dialog(path)
-    console.log(perm_dialog.attr('filepath'))
+    pathselect = perm_dialog.attr('filepath')
+    console.log(pathselect)
 
     // Deal with the fact that folders try to collapse/expand when you click on their permissions button:
     e.stopPropagation() // don't propagate button click to element underneath it (e.g. folder accordion)
@@ -82,40 +85,27 @@ $('#sidepanel').append(permpanel);
 let userselect = define_new_user_select_field("user", "Select User To View Their Permissions", function(selected_user){$('#permCol').attr('username', selected_user)});
 $('#sidepanel').append(userselect);
 
-
-//let fileselect = define_new_file_select_field("file", "Select File You Want To View Permissions For",function(selected_user){$('#permCol').attr('filename', selected_user)});
-//let fileselect = define_single_select_list("file");
-//$('#sidepanel').append(fileselect);
-
-//let pathselect = perm_dialog.attr('filepath')
-//console.log(perm_dialog.attr('filepath'))
-//$('#permCol').attr('filepath', '/C/presentation_documents/important_file.txt')
-
 //Permissions Explanation
 let dialog = define_new_dialog("dialog", "Permission");
 
 $('.perm_info').click(function(){
-    console.log(perm_dialog.attr('filepath'))
 
     console.log('clicked!')
-    //console.log($('#permCol').attr('filepath'))
+    var pathstring = pathselect.toString();
+    console.log(pathstring)
     console.log($('#permCol').attr('username'))
     console.log($(this).attr('permission_name'))
 
-    //let filepathObj = path_to_file[$('#permCol').attr('filepath')]
     let usernameObj = all_users[$('#permCol').attr('username')]
     let permissionObj = $(this).attr('permission_name')
-    //let filepathNotObj = String([$('#permCol').attr('filepath')])
 
-    let filepathObj = path_to_file[perm_dialog.attr('filepath')]
-    let filepathNotObj = path_to_file[perm_dialog.attr('filepath')]
-
-    var n = filepathNotObj.lastIndexOf("/")
-    var fileString = filepathNotObj.substring(n+1)
-
+    let filepathObj = path_to_file[pathstring]
+    let namestring = filepathObj.filename;
+    
     console.log(filepathObj)
+    console.log(namestring)
     let userAction = allow_user_action(filepathObj, usernameObj, permissionObj, true)
-    let explanataion = get_explanation_text(userAction, usernameObj, fileString, permissionObj)
+    let explanataion = get_explanation_text(userAction, usernameObj, namestring, permissionObj)
     dialog.html(explanataion)
     dialog.dialog('open')
 })
