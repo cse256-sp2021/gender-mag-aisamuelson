@@ -82,7 +82,7 @@ $('#html-loc').find('*').uniqueId()
 let permpanel = define_new_effective_permissions("permCol", true);
 $('#sidepanel').append(permpanel);
 
-let userselect = define_new_user_select_field("user", "Select User To View Their Permissions", function(selected_user){$('#permCol').attr('username', selected_user)});
+let userselect = define_new_user_select_field("user", "Select File  With The Menu On The Left <br> The Select User To View Their Permissions", function(selected_user){$('#permCol').attr('username', selected_user)});
 $('#sidepanel').append(userselect);
 
 //Permissions Explanation
@@ -101,7 +101,7 @@ $('.perm_info').click(function(){
 
     let filepathObj = path_to_file[pathstring]
     let namestring = filepathObj.filename;
-    
+
     console.log(filepathObj)
     console.log(namestring)
     let userAction = allow_user_action(filepathObj, usernameObj, permissionObj, true)
