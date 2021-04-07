@@ -85,6 +85,11 @@ $('#sidepanel').append(permpanel);
 let userselect = define_new_user_select_field("user", "Select File  With The Menu On The Left <br> The Select User To View Their Permissions", function(selected_user){$('#permCol').attr('username', selected_user)});
 $('#sidepanel').append(userselect);
 
+//let fileselect = define_new_user_select_field("file", "Select File  With The Menu On The Left <br> The Select User To View Their Permissions", function(selected_user){$('#permCol').attr('username', selected_user)});
+
+//var pathstring = pathselect.toString();
+//$('#sidepanel').append(pathstring);
+
 //Permissions Explanation
 let dialog = define_new_dialog("dialog", "Permission");
 

@@ -436,7 +436,7 @@ all_user_elements = make_user_list('user_select', all_users)
 all_users_selectlist.append(all_user_elements)
 
 // Make the dialog:
-user_select_dialog = define_new_dialog('user_select_dialog2', 'Select User', {
+user_select_dialog = define_new_dialog('user_select_dialog', 'Select User', {
     buttons: {
         Cancel: {
             text: "Cancel",
