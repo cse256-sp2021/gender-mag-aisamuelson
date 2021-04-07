@@ -66,8 +66,8 @@ $('.permbutton').click( function( e ) {
     perm_dialog.attr('filepath', path)
     perm_dialog.dialog('open')
     //open_permissions_dialog(path)
-    pathselect = perm_dialog.attr('filepath')
-    console.log(pathselect)
+    //pathselect = perm_dialog.attr('filepath')
+    //console.log(pathselect)
 
     // Deal with the fact that folders try to collapse/expand when you click on their permissions button:
     e.stopPropagation() // don't propagate button click to element underneath it (e.g. folder accordion)
@@ -82,13 +82,30 @@ $('#html-loc').find('*').uniqueId()
 let permpanel = define_new_effective_permissions("permCol", true);
 $('#sidepanel').append(permpanel);
 
-let userselect = define_new_user_select_field("user", "Select File  With The Menu On The Left <br> The Select User To View Their Permissions", function(selected_user){$('#permCol').attr('username', selected_user)});
+let textpanel = "<br> <b>Select a file/folder and a user to view their permissions</b>"
+$('#sidepanel').append(textpanel);
+
+var fileselect = ` <select name="files" id="file-select" onchange="updateFile()">`;
+for (var element in path_to_file) {
+    fileselect += `<option value="${element}">${element}</option>`;
+}
+fileselect += `</select>`;
+$('#sidepanel').append(fileselect);
+
+$('#permCol').attr('filepath', "/C")
+
+function updateFile(){
+    var filenamevar = document.getElementById("file-select").value;
+    $('#permCol').attr('filepath', filenamevar)
+    console.log($('#permCol').attr('filepath'))
+}
+
+let blankpanel = "<br> <br>"
+$('#sidepanel').append(blankpanel);
+
+let userselect = define_new_user_select_field("user", "Select User", function(selected_user){$('#permCol').attr('username', selected_user)});
 $('#sidepanel').append(userselect);
 
-//let fileselect = define_new_user_select_field("file", "Select File  With The Menu On The Left <br> The Select User To View Their Permissions", function(selected_user){$('#permCol').attr('username', selected_user)});
-
-//var pathstring = pathselect.toString();
-//$('#sidepanel').append(pathstring);
 
 //Permissions Explanation
 let dialog = define_new_dialog("dialog", "Permission");
@@ -96,15 +113,14 @@ let dialog = define_new_dialog("dialog", "Permission");
 $('.perm_info').click(function(){
 
     console.log('clicked!')
-    var pathstring = pathselect.toString();
-    console.log(pathstring)
     console.log($('#permCol').attr('username'))
+    console.log($('#permCol').attr('filepath'))
     console.log($(this).attr('permission_name'))
 
     let usernameObj = all_users[$('#permCol').attr('username')]
     let permissionObj = $(this).attr('permission_name')
 
-    let filepathObj = path_to_file[pathstring]
+    let filepathObj = path_to_file[$('#permCol').attr('filepath')]
     let namestring = filepathObj.filename;
 
     console.log(filepathObj)
