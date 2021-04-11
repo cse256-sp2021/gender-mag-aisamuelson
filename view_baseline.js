@@ -1,5 +1,5 @@
 // Configuration
-show_starter_dialogs = false // set this to "false" to disable the survey and 3-minute timer. Set to "true" before submitting to MTurk!!
+show_starter_dialogs = true // set this to "false" to disable the survey and 3-minute timer. Set to "true" before submitting to MTurk!!
 
 // ---- Set up main Permissions dialog ----
 
@@ -7,8 +7,8 @@ show_starter_dialogs = false // set this to "false" to disable the survey and 3-
 // Make permissions dialog:
 perm_dialog = define_new_dialog('permdialog', title='Permissions', options = {
     // The following are standard jquery-ui options. See https://jqueryui.com/dialog/
-    height: 500,
-    width: 400,
+    height: 550,
+    width: 450,
     buttons: {
         
         Advanced: {
@@ -33,7 +33,7 @@ perm_dialog = define_new_dialog('permdialog', title='Permissions', options = {
 obj_name_div = $('<div id="permdialog_objname" class="section">Object Name: <span id="permdialog_objname_namespan"></span> </div>')
 
 //Make the div with the explanation about special permissions/advanced settings:
-advanced_expl_div = $('<div id="permdialog_advanced_explantion_text">For special permissions or advanced settings, click More Options.</div>')
+advanced_expl_div = $('<div id="permdialog_advanced_explantion_text">Grayed out check boxes imply that the permission in determined by a higher up user/group.  <br> <br> <b> For special permissions or advanced settings, click More Options. </b> </div>')
 
 // Make the (grouped) permission checkboxes table:
 grouped_permissions = define_grouped_permission_checkboxes('permdialog_grouped_permissions')
@@ -492,6 +492,7 @@ let user_select_contents = $("#user_select_dialog").dialog({
                 // populate field with user name (assume these are stored in attributes)
                 let to_populate_id = $(this).attr('to_populate')
                 let selected_value = $(this).attr('username')
+                //console.log($(this).attr('username'))
                 $(`#${to_populate_id}`).text(selected_value)
                 $(`#${to_populate_id}`).attr('selected_user', selected_value)
                 $( this ).dialog( "close" );
@@ -639,7 +640,7 @@ You will still get paid if you don't finish the task, but you have to try.
 })
 
 $(`<div id="survey-dialog" title="Survey">
-    <div id="survey-explanation" style="section">Before you begin the task, please indicate how much you agree or disagree with each of the following statements:</div>
+    <div id="survey-explanation" style="section"><b>Before you begin the task, please indicate how much you agree or disagree with each of the following statements:</b></div>
     <form id="survey-form">
     <br/>
 
