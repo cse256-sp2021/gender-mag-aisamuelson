@@ -56,7 +56,7 @@ $('.folder').accordion({
 
 
 // -- Connect File Structure lock buttons to the permission dialog --
-
+ 
 // open permissions dialog when a permission button is clicked
 $('.permbutton').click( function( e ) {
     // Set the path and open dialog:

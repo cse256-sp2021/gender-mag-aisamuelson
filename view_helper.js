@@ -63,7 +63,7 @@ function make_user_list(id_prefix, usermap, add_attributes = false) {
 
 // --- helper functions to define various semi-permanent elements.
 // --- Only call these once for each new dialog/selection/item etc. you are defining! (NOT each time you want to open/close/hide a dialog)
-
+ 
 
 // Define a new type of dialog. 
 //

@@ -1,7 +1,7 @@
 
 // This describes a file permissions model which closely replicates the Windows one.
 
-
+ 
 emitter = new EventTarget()
 
 // -- pseudo-enum of permission types -- 
